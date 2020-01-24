@@ -43,7 +43,7 @@ namespace MyApi.Controllers.v1
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public virtual async Task<ActionResult<List<User>>> Get(CancellationToken cancellationToken)
+        public virtual async Task<ApiResult<List<User>>> Get(CancellationToken cancellationToken)
         {
             //var userName = HttpContext.User.Identity.GetUserName();
             //userName = HttpContext.User.Identity.Name;

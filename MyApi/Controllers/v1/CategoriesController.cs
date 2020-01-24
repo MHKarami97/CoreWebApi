@@ -6,6 +6,7 @@ using WebFramework.Api;
 
 namespace MyApi.Controllers.v1
 {
+    [ApiVersion("1")]
     public class CategoriesController : CrudController<CategoryDto, Category>
     {
         public CategoriesController(IRepository<Category> repository, IMapper mapper)

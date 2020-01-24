@@ -28,7 +28,7 @@ namespace WebFramework.Api
         }
 
         [HttpGet]
-        public virtual async Task<ActionResult<List<TSelectDto>>> Get(CancellationToken cancellationToken)
+        public virtual async Task<ApiResult<List<TSelectDto>>> Get(CancellationToken cancellationToken)
         {
             var list = await Repository.TableNoTracking
                 .Where(a => !a.Status.Equals(2))
