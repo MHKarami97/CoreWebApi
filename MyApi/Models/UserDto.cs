@@ -14,6 +14,11 @@ namespace MyApi.Models
         public DateTime Birthday { get; set; }
         public GenderType Gender { get; set; }
 
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$",
+            ErrorMessage = "Not a valid phone number")]
+        public string PhoneNumber { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (UserName.Equals("test", StringComparison.OrdinalIgnoreCase))

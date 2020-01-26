@@ -37,7 +37,7 @@ namespace MyApi.Controllers.v2
             return base.Delete(id, cancellationToken);
         }
 
-        public override Task<ActionResult<List<User>>> Get(CancellationToken cancellationToken)
+        public override Task<ApiResult<List<User>>> Get(CancellationToken cancellationToken)
         {
             return base.Get(cancellationToken);
         }

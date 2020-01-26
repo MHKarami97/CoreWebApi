@@ -30,14 +30,9 @@ namespace MyApi.Controllers.v1
         }
 
         [AllowAnonymous]
-        public async Task<ApiResult> SendCode()
+        public async Task<ApiResult> SendCode(int userId, string tokenProvider)
         {
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-
-            if (user == null)
-                return NotFound();
-
-            const string tokenProvider = "Email";
+            var user = await _userManager.FindByIdAsync(userId.ToString());
 
             var code = await _userManager.GenerateTwoFactorTokenAsync(user, tokenProvider);
 

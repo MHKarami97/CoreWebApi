@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Data.Contracts;
 using Entities.Post;
+using Microsoft.AspNetCore.Mvc;
 using MyApi.Models;
 using WebFramework.Api;
 

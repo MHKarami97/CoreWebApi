@@ -30,7 +30,7 @@ namespace MyApi.Controllers.v2
             return base.Delete(id, cancellationToken);
         }
 
-        public override async Task<ActionResult<List<PostSelectDto>>> Get(CancellationToken cancellationToken)
+        public override async Task<ApiResult<List<PostSelectDto>>> Get(CancellationToken cancellationToken)
         {
             return await Task.FromResult(new List<PostSelectDto>
             {

@@ -15,7 +15,6 @@ using Entities.User;
 using WebFramework.Api;
 using Microsoft.AspNetCore.Identity;
 using Services.Services;
-using WebFramework.Filters;
 
 namespace MyApi.Controllers.v1
 {
@@ -80,7 +79,6 @@ namespace MyApi.Controllers.v1
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        [HasAnonymousFilter]
         [HttpPost("[action]")]
         public virtual async Task<ActionResult> Token([FromForm]TokenRequest tokenRequest, CancellationToken cancellationToken)
         {
@@ -105,7 +103,33 @@ namespace MyApi.Controllers.v1
         }
 
         [AllowAnonymous]
-        [HasAnonymousFilter]
+        [HttpPost("[action]")]
+        public virtual async Task<ActionResult> LoginByPhone(string phone, int? verifyCode, CancellationToken cancellationToken)
+        {
+            var user = await _userManager.Users.SingleAsync(a => a.PhoneNumber.Equals(phone), cancellationToken);
+
+            if (user == null)
+                throw new BadRequestException("شماره وارد شده موجود نمی باشد");
+
+            if (verifyCode == 0)
+            {
+                //var result=sendSms(); //todo
+            }
+            else
+            {
+                if (!user.VerifyCode.Equals(verifyCode))
+                    return BadRequest();
+
+                var jwt = await _jwtService.GenerateAsync(user);
+
+                return new JsonResult(jwt);
+            }
+
+            return BadRequest();
+        }
+
+
+        [AllowAnonymous]
         [HttpPost("[action]")]
         public async Task<IActionResult> RefreshToken([FromForm]TokenRequest tokenRequest)
         {
@@ -147,7 +171,6 @@ namespace MyApi.Controllers.v1
 
         [HttpPost]
         [AllowAnonymous]
-        [HasAnonymousFilter]
         public virtual async Task<ApiResult<User>> Create(UserDto userDto, CancellationToken cancellationToken)
         {
             _logger.LogError("متد Create فراخوانی شد");
@@ -157,16 +180,21 @@ namespace MyApi.Controllers.v1
             //if (exists)
             //    return BadRequest("نام کاربری تکراری است");
 
+            var exists = await _userManager.Users.AnyAsync(p => p.PhoneNumber == userDto.PhoneNumber, cancellationToken: cancellationToken);
+            if (exists)
+                return BadRequest("شماره موبایل تکراری است");
+
             var user = new User
             {
                 Birthday = DateTime.Now,
                 FullName = userDto.FullName,
                 Gender = userDto.Gender,
                 UserName = userDto.UserName,
-                Email = userDto.Email
+                Email = userDto.Email,
+                PhoneNumber = userDto.PhoneNumber
             };
-            var result = await _userManager.CreateAsync(user, userDto.Password);
 
+            var result = await _userManager.CreateAsync(user, userDto.Password);
             if (!result.Succeeded)
                 return BadRequest();
 
