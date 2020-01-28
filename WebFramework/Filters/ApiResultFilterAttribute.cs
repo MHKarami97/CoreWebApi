@@ -68,11 +68,7 @@ namespace WebFramework.Filters
                 var apiResult = new ApiResult(false, ApiResultStatusCode.NotKnow);
                 context.Result = new JsonResult(apiResult) { StatusCode = objectResultNotKnow.StatusCode };
             }
-            else
-            {
-                var apiResult = new ApiResult(false, ApiResultStatusCode.NotKnow);
-                context.Result = new JsonResult(apiResult) { StatusCode = 0 };
-            }
+
             base.OnResultExecuting(context);
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using AspNetCoreRateLimit;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,13 +27,13 @@ namespace MyApi
 
                 using var scope = webHost.Services.CreateScope();
 
-                var clientPolicyStore = scope.ServiceProvider.GetRequiredService<IClientPolicyStore>();
-
-                await clientPolicyStore.SeedAsync();
-
-                var ipPolicyStore = scope.ServiceProvider.GetRequiredService<IIpPolicyStore>();
-
-                await ipPolicyStore.SeedAsync();
+                // var clientPolicyStore = scope.ServiceProvider.GetRequiredService<IClientPolicyStore>();
+                //
+                // await clientPolicyStore.SeedAsync();
+                //
+                // var ipPolicyStore = scope.ServiceProvider.GetRequiredService<IIpPolicyStore>();
+                //
+                // await ipPolicyStore.SeedAsync();
 
                 await webHost.RunAsync();
             }

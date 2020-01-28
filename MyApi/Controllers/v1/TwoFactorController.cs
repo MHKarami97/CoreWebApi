@@ -10,6 +10,7 @@ using WebFramework.Api;
 namespace MyApi.Controllers.v1
 {
     [Authorize]
+    [ApiVersion("1")]
     public class TwoFactorController : ControllerBase
     {
         //private readonly IEmailSender _emailSender;
@@ -29,10 +30,16 @@ namespace MyApi.Controllers.v1
             _logger = logger;
         }
 
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<ApiResult> SendCode(int userId, string tokenProvider)
+        public async Task<ApiResult> SendCode()
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+
+            if (user == null)
+                return NotFound();
+
+            const string tokenProvider = "Email";
 
             var code = await _userManager.GenerateTwoFactorTokenAsync(user, tokenProvider);
 
@@ -79,6 +86,33 @@ namespace MyApi.Controllers.v1
             ModelState.AddModelError(string.Empty, "کد وارد شده غیر معتبر است.");
 
             return BadRequest("Not valid code");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Verify(int userId, int? verifyCode)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+
+            if (verifyCode != 0)
+            {
+                //todo send code
+
+                return Ok();
+            }
+
+            if (!user.VerifyCode.Equals(verifyCode))
+                return BadRequest();
+
+            user.PhoneNumberConfirmed = true;
+
+            var result = await _userManager.UpdateSecurityStampAsync(user);
+            var updateUser = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded || !updateUser.Succeeded)
+                return BadRequest();
+
+            return Ok();
         }
     }
 }

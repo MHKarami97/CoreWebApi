@@ -26,7 +26,7 @@ namespace Entities.Post
             builder.HasOne(p => p.ParentCategory).WithMany(c => c.ChildCategories).HasForeignKey(p => p.ParentCategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasIndex(a => a.ParentCategoryId).HasName("IX_Category_ParentCategoryId").IsUnique();
+            builder.HasIndex(a => a.ParentCategoryId).HasName("IX_Category_ParentCategoryId");
         }
     }
 }

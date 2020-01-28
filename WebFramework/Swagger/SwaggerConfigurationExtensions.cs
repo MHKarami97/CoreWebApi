@@ -114,8 +114,8 @@ namespace WebFramework.Swagger
                     {
                         Password = new OpenApiOAuthFlow
                         {
-                            TokenUrl = new Uri("https://localhost:5001/api/v1/users/Token"),
-                            //AuthorizationUrl = new Uri("https://localhost:5001/api/v1/users/Token")
+                            TokenUrl = new Uri("https://localhost:44339/api/v1/user/Token"),
+                            //AuthorizationUrl = new Uri("https://localhost:44339/api/v1/user/Token")
                             //Scopes = new Dictionary<string, string>
                             //{
                             //    { "readAccess", "Access read operations" },

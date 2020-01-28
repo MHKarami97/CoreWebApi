@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class MyMigration : Migration
+    public partial class ApiMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,7 @@ namespace Data.Migrations
                     Birthday = table.Column<DateTime>(nullable: false),
                     Gender = table.Column<int>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
+                    VerifyCode = table.Column<int>(nullable: true),
                     LastLoginDate = table.Column<DateTimeOffset>(nullable: true)
                 },
                 constraints: table =>
@@ -307,15 +308,12 @@ namespace Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Category_ParentCategoryId",
                 table: "Category",
-                column: "ParentCategoryId",
-                unique: true,
-                filter: "[ParentCategoryId] IS NOT NULL");
+                column: "ParentCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Post_Address",
                 table: "Post",
-                column: "Address",
-                unique: true);
+                column: "Address");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Post_CategoryId",
@@ -325,26 +323,22 @@ namespace Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Post_Rank",
                 table: "Post",
-                column: "Rank",
-                unique: true);
+                column: "Rank");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Post_Type",
                 table: "Post",
-                column: "Type",
-                unique: true);
+                column: "Type");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Post_UserId",
                 table: "Post",
-                column: "UserId",
-                unique: true);
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Post_View",
                 table: "Post",
-                column: "View",
-                unique: true);
+                column: "View");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserToken_UserId",

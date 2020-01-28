@@ -1,5 +1,4 @@
 ﻿using System;
-using AspNetCoreRateLimit;
 using Autofac;
 using Common;
 using WebFramework.Swagger;
@@ -8,7 +7,6 @@ using WebFramework.Configuration;
 using WebFramework.CustomMapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OwaspHeaders.Core.Extensions;
@@ -55,34 +53,34 @@ namespace MyApi
 
             services.AddSwagger();
 
-            services.AddHttpCacheHeaders(
-                (expirationModelOptions) =>
-                {
-                    expirationModelOptions.MaxAge = 600;
-                },
-                (validationModelOptions) =>
-                {
-                    validationModelOptions.MustRevalidate = true;
-                });
-
-            // configure ip rate limiting middle-ware
-            services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
-            services.Configure<IpRateLimitPolicies>(Configuration.GetSection("IpRateLimitPolicies"));
-            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
-            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
-
-            // configure client rate limiting middleware
-            services.Configure<ClientRateLimitOptions>(Configuration.GetSection("ClientRateLimiting"));
-            services.Configure<ClientRateLimitPolicies>(Configuration.GetSection("ClientRateLimitPolicies"));
-            services.AddSingleton<IClientPolicyStore, MemoryCacheClientPolicyStore>();
-            //services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
-
-            var opt = new ClientRateLimitOptions();
-            Configuration.GetSection("ClientRateLimiting").Bind(opt);
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            // services.AddHttpCacheHeaders(
+            //     (expirationModelOptions) =>
+            //     {
+            //         expirationModelOptions.MaxAge = 600;
+            //     },
+            //     (validationModelOptions) =>
+            //     {
+            //         validationModelOptions.MustRevalidate = true;
+            //     });
+            //
+            // // configure ip rate limiting middle-ware
+            // services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
+            // services.Configure<IpRateLimitPolicies>(Configuration.GetSection("IpRateLimitPolicies"));
+            // services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            // services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            //
+            // // configure client rate limiting middleware
+            // services.Configure<ClientRateLimitOptions>(Configuration.GetSection("ClientRateLimiting"));
+            // services.Configure<ClientRateLimitPolicies>(Configuration.GetSection("ClientRateLimitPolicies"));
+            // services.AddSingleton<IClientPolicyStore, MemoryCacheClientPolicyStore>();
+            // //services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            //
+            // var opt = new ClientRateLimitOptions();
+            // Configuration.GetSection("ClientRateLimiting").Bind(opt);
+            //
+            // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //
+            // services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 
             //services.AddElmah(Configuration, _siteSetting);
         }
@@ -94,15 +92,15 @@ namespace MyApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseIpRateLimiting();
+            //app.UseIpRateLimiting();
 
-            app.UseClientRateLimiting();
+            //app.UseClientRateLimiting();
 
             app.IntializeDatabase();
 
             app.UseCustomExceptionHandler();
 
-            app.UseHsts();
+            app.UseHsts(env);
 
             //app.UseElmah();
 
@@ -120,7 +118,7 @@ namespace MyApi
 
             app.UseAuthorization();
 
-            app.UseHttpCacheHeaders();
+            //app.UseHttpCacheHeaders();
 
             app.UseEndpoints(endpoints =>
             {

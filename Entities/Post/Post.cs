@@ -40,11 +40,11 @@ namespace Entities.Post
             builder.HasOne(p => p.User).WithMany(c => c.Posts).HasForeignKey(p => p.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasIndex(a => a.UserId).HasName("IX_Post_UserId").IsUnique();
-            builder.HasIndex(a => a.Type).HasName("IX_Post_Type").IsUnique();
-            builder.HasIndex(a => a.Rank).HasName("IX_Post_Rank").IsUnique();
-            builder.HasIndex(a => a.View).HasName("IX_Post_View").IsUnique();
-            builder.HasIndex(a => a.Address).HasName("IX_Post_Address").IsUnique();
+            builder.HasIndex(a => a.UserId).HasName("IX_Post_UserId");
+            builder.HasIndex(a => a.Type).HasName("IX_Post_Type");
+            builder.HasIndex(a => a.Rank).HasName("IX_Post_Rank");
+            builder.HasIndex(a => a.View).HasName("IX_Post_View");
+            builder.HasIndex(a => a.Address).HasName("IX_Post_Address");
         }
     }
 }

@@ -114,20 +114,24 @@ namespace MyApi.Controllers.v1
             if (verifyCode == 0)
             {
                 //var result=sendSms(); //todo
-            }
-            else
-            {
-                if (!user.VerifyCode.Equals(verifyCode))
-                    return BadRequest();
 
-                var jwt = await _jwtService.GenerateAsync(user);
-
-                return new JsonResult(jwt);
+                return Ok();
             }
 
-            return BadRequest();
+            if (!user.VerifyCode.Equals(verifyCode))
+                return BadRequest();
+
+            user.VerifyCode = 0;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+                return BadRequest();
+
+            var jwt = await _jwtService.GenerateAsync(user);
+
+            return new JsonResult(jwt);
         }
-
 
         [AllowAnonymous]
         [HttpPost("[action]")]

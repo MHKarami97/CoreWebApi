@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200108071941_MyMigration")]
-    partial class MyMigration
+    [Migration("20200128080322_ApiMigration")]
+    partial class ApiMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,9 +45,7 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ParentCategoryId")
-                        .IsUnique()
-                        .HasName("IX_Category_ParentCategoryId")
-                        .HasFilter("[ParentCategoryId] IS NOT NULL");
+                        .HasName("IX_Category_ParentCategoryId");
 
                     b.ToTable("Category");
                 });
@@ -113,25 +111,20 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Address")
-                        .IsUnique()
                         .HasName("IX_Post_Address");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("Rank")
-                        .IsUnique()
                         .HasName("IX_Post_Rank");
 
                     b.HasIndex("Type")
-                        .IsUnique()
                         .HasName("IX_Post_Type");
 
                     b.HasIndex("UserId")
-                        .IsUnique()
                         .HasName("IX_Post_UserId");
 
                     b.HasIndex("View")
-                        .IsUnique()
                         .HasName("IX_Post_View");
 
                     b.ToTable("Post");
@@ -248,6 +241,9 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
+
+                    b.Property<int?>("VerifyCode")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
