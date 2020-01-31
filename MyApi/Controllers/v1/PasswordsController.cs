@@ -9,7 +9,7 @@ using MyApi.Models;
 namespace MyApi.Controllers.v1
 {
     [ApiVersion("1")]
-    //[Route("api/v{version:apiVersion}/[controller]/[action]")]
+    [Authorize]
     public class PasswordsController : BaseController
     {
         //private readonly IEmailSender _emailSender;

@@ -13,7 +13,7 @@ using WebFramework.Api;
 namespace MyApi.Controllers.v1
 {
     [ApiVersion("1")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "SuperAdminPolicy")]
     public class RolesController : BaseController
     {
         private readonly ILogger<RolesController> _logger;

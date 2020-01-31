@@ -43,8 +43,8 @@ namespace MyApi.Controllers.v1
             return Ok();
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
+        [Authorize(Policy = "WorkerPolicy")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> ChangeUserLockoutMode(int userId, bool activate)
         {
@@ -61,8 +61,8 @@ namespace MyApi.Controllers.v1
             return Ok();
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
+        [Authorize(Policy = "SuperAdminPolicy")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> ChangeUserRoles(int userId, int[] roleIds)
         {
@@ -86,8 +86,8 @@ namespace MyApi.Controllers.v1
             return Ok();
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
+        [Authorize(Policy = "WorkerPolicy")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> ChangeUserStat(int userId, bool activate)
         {

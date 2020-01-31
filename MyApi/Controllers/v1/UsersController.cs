@@ -225,6 +225,7 @@ namespace MyApi.Controllers.v1
         }
 
         [HttpDelete]
+        [Authorize(Policy = "SuperAdminPolicy")]
         public virtual async Task<ApiResult> Delete(int id, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByIdAsync(cancellationToken, id);

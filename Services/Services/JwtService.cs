@@ -180,8 +180,14 @@ namespace Services.Services
         private async Task<IEnumerable<Claim>> GetClaimsAsync(User user)
         {
             var result = await _signInManager.ClaimsFactory.CreateAsync(user);
+
             //add custom claims
             var list = new List<Claim>(result.Claims);
+
+            // var userRoles = await _userManager.GetRolesAsync(user);
+            //
+            // list.AddRange(userRoles.Select(userRole => new Claim(ClaimTypes.Role, userRole)));
+
             //list.Add(new Claim(ClaimTypes.MobilePhone, "09123456987"));
 
             //JwtRegisteredClaimNames.Sub

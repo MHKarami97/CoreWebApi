@@ -139,6 +139,13 @@ namespace WebFramework.Configuration
 
                         return Task.CompletedTask;
                     },
+                    OnForbidden = context =>
+                    {
+                        var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(JwtBearerEvents));
+                        logger.LogError("Authentication failed. (Forbidden method)");
+
+                        throw new AppException(ApiResultStatusCode.Forbidden, "Authentication failed.", HttpStatusCode.Forbidden, new Exception("Forbidden method"), null);
+                    },
                     OnTokenValidated = async context =>
                     {
                         var signInManager = context.HttpContext.RequestServices.GetRequiredService<SignInManager<User>>();

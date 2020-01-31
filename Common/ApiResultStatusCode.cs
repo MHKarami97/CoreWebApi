@@ -25,6 +25,9 @@ namespace Common
         [Display(Name = "خطای احراز هویت")]
         UnAuthorized = 6,
 
+        [Display(Name = "خطای سطح دسترسی")]
+        Forbidden = 6,
+
         [Display(Name = "خطای نامشخص")]
         NotKnow = 7
     }
