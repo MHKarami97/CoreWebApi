@@ -1,14 +1,14 @@
 <div dir="ltr">
 
-## 🥇Professional REST API design with ASP.NET Core 3 and WebAPI
+## 🥇Professional REST API design with ASP.NET Core 3.1 and WebAPI
 
-This project is an example of lightweight and extensible infrastructure for building RESTful Web API with ASP.NET Core.
+This project is lightweight and extensible infrastructure for building RESTful Web API with ASP.NET Core.
 
 ### Testing it out
 1. Clone or download this repository
 2. Build the solution using command line with `dotnet build`
 3. Go to **MyApi** directory and run project using command line with `dotnet run`
-4. Browse to this url https://localhost:5001/swagger to see SwaggerUI page
+4. Browse to this url https://localhost:44339/swagger to see SwaggerUI page
 
 ### Techniques and Features
 - JWT Authentication
