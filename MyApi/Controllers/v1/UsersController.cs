@@ -153,7 +153,7 @@ namespace MyApi.Controllers.v1
         }
 
         [AllowAnonymous]
-        [HttpGet("[action]"), HttpPost("[action]")]
+        [HttpGet("[action]")]
         public async Task<bool> Logout()
         {
             if (!(User.Identity is ClaimsIdentity claimsIdentity))

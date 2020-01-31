@@ -25,7 +25,8 @@ namespace MyApi.Controllers.v1
             _roleManager = roleManager;
         }
 
-        [HttpPost]
+        [Authorize]
+        [HttpPost("[action]")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> ActivateUserEmailStat(int userId)
         {
@@ -42,8 +43,8 @@ namespace MyApi.Controllers.v1
             return Ok();
         }
 
-        [HttpPost]
         [Authorize(Roles = "Admin")]
+        [HttpPost("[action]")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> ChangeUserLockoutMode(int userId, bool activate)
         {
@@ -60,8 +61,8 @@ namespace MyApi.Controllers.v1
             return Ok();
         }
 
-        [HttpPost]
         [Authorize(Roles = "Admin")]
+        [HttpPost("[action]")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> ChangeUserRoles(int userId, int[] roleIds)
         {
@@ -85,8 +86,8 @@ namespace MyApi.Controllers.v1
             return Ok();
         }
 
-        [HttpPost]
         [Authorize(Roles = "Admin")]
+        [HttpPost("[action]")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> ChangeUserStat(int userId, bool activate)
         {
@@ -103,7 +104,7 @@ namespace MyApi.Controllers.v1
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> ChangeUserTwoFactorAuthenticationStat(int userId, bool activate)
         {
@@ -120,7 +121,7 @@ namespace MyApi.Controllers.v1
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> EndUserLockout(int userId)
         {

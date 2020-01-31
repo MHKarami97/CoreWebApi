@@ -5,6 +5,7 @@
         public string ElmahPath { get; set; }
         public JwtSettings JwtSettings { get; set; }
         public IdentitySettings IdentitySettings { get; set; }
+        public Identity Identity { get; set; }
         public SmtpConfig SmtpConfig { get; set; }
     }
 
@@ -16,6 +17,15 @@
         public bool PasswordRequireUppercase { get; set; }
         public bool PasswordRequireLowercase { get; set; }
         public bool RequireUniqueEmail { get; set; }
+    }
+    public class Identity
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public string FullName { get; set; }
+        public string Phone { get; set; }
+        public string Roles { get; set; }
     }
     public class JwtSettings
     {

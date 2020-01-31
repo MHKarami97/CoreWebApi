@@ -6,7 +6,6 @@ using MyApi.Models;
 using Data.Contracts;
 using Entities.Post;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
 using WebFramework.Api;
 
 namespace MyApi.Controllers.v1
